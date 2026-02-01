@@ -104,9 +104,10 @@
         }
 
         #noBtn {
-            position: absolute;
+            position: fixed;
             background: linear-gradient(135deg, #9e9e9e 0%, #616161 100%);
             color: white;
+            transition: all 0.3s ease;
         }
 
         #noBtn:hover {
@@ -157,6 +158,21 @@
 
         .sparkle:nth-child(odd) { animation-delay: 0.5s; }
         .sparkle:nth-child(even) { animation-delay: 1s; }
+
+        .footer-credit {
+            position: fixed;
+            bottom: 15px;
+            right: 20px;
+            font-size: 14px;
+            color: #ff1744;
+            font-family: 'Georgia', serif;
+            z-index: 1000;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 15px;
+            border-radius: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 
@@ -185,6 +201,8 @@
         <div class="celebration" id="celebration">🎉💕🎊💝🌹</div>
     </div>
 
+    <div class="footer-credit">coded by cheta</div>
+
 <script>
     function showMessage() {
         document.getElementById("message").style.display = "block";
@@ -199,21 +217,25 @@
 
     function moveNo() {
         var btn = document.getElementById("noBtn");
+        
+        // Get button dimensions
         var btnWidth = btn.offsetWidth;
         var btnHeight = btn.offsetHeight;
 
-        // Calculate maximum positions to keep button in viewport
-        var maxX = window.innerWidth - btnWidth - 20;
-        var maxY = window.innerHeight - btnHeight - 20;
+        // Get viewport dimensions
+        var viewportWidth = window.innerWidth;
+        var viewportHeight = window.innerHeight;
+
+        // Calculate safe boundaries (with padding)
+        var padding = 20;
+        var maxX = viewportWidth - btnWidth - padding;
+        var maxY = viewportHeight - btnHeight - padding;
 
         // Generate random positions within safe bounds
-        var x = Math.random() * maxX;
-        var y = Math.random() * maxY;
+        var x = Math.random() * (maxX - padding) + padding;
+        var y = Math.random() * (maxY - padding) + padding;
 
-        // Ensure minimum distance from edges
-        x = Math.max(10, x);
-        y = Math.max(10, y);
-
+        // Apply the new position
         btn.style.left = x + "px";
         btn.style.top = y + "px";
     }
