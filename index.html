@@ -199,9 +199,20 @@
 
     function moveNo() {
         var btn = document.getElementById("noBtn");
+        var btnWidth = btn.offsetWidth;
+        var btnHeight = btn.offsetHeight;
 
-        var x = Math.random() * (window.innerWidth - 150);
-        var y = Math.random() * (window.innerHeight - 100);
+        // Calculate maximum positions to keep button in viewport
+        var maxX = window.innerWidth - btnWidth - 20;
+        var maxY = window.innerHeight - btnHeight - 20;
+
+        // Generate random positions within safe bounds
+        var x = Math.random() * maxX;
+        var y = Math.random() * maxY;
+
+        // Ensure minimum distance from edges
+        x = Math.max(10, x);
+        y = Math.max(10, y);
 
         btn.style.left = x + "px";
         btn.style.top = y + "px";
